@@ -11,38 +11,47 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by oskar on 4/1/16.
- */
 public class PDFDownloader {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         download("http://cs.lth.se/eda095/tentamen/");
     }
 
-    private static void download(String url){
+    private static void download(String url) {
         String content = "";
         URLConnection connection;
+
+        //----- Connect to website and scan the content ----- //
+
         try {
-            connection =  new URL(url).openConnection();
+            connection = new URL(url).openConnection();
             Scanner scanner = new Scanner(connection.getInputStream());
             scanner.useDelimiter("\\Z");
             content = scanner.next();
-        }catch ( Exception ex ) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
+        //----- Regular expressions ----- //
+
+        //First find all lines with links.
         Pattern htmltag = Pattern.compile("<a\\b[^>]*href=\"[^>]*>(.*?)</a>");
+        //Then find which of these have hrefs.
         Pattern link = Pattern.compile("href=\\\"[^>]*\\\">");
+        //Lastly check which of these hrefs refer to .pdf sources.
         Pattern pdf = Pattern.compile("(.*)\\.pdf");
         Matcher tagMatch = htmltag.matcher(content);
 
         int i = 1;
-        while(tagMatch.find()){
+        //For each html tag match...
+        while (tagMatch.find()) {
+            //... find links with href...
             Matcher m = link.matcher(tagMatch.group());
-            while (m.find()){
+            //... for each line with href...
+            while (m.find()) {
                 Matcher pdfM = pdf.matcher(m.group());
-
-                if (pdfM.find()){
+                //... find the ones referring to a .pdf source...
+                if (pdfM.find()) {
+                    //... open a stream and download the hits.
                     String pdfUrl = pdfM.group(0).replaceAll("href=\"", "");
                     InputStream in;
                     try {
@@ -58,6 +67,10 @@ public class PDFDownloader {
                 }
             }
         }
-        System.out.println("Found " + i + " pdf documents.");
+        if (i == 1) {
+            System.out.println(i + " pdf document found.");
+        } else {
+            System.out.println(i + " pdf documents found.");
+        }
     }
 }
