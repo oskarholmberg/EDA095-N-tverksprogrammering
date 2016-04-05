@@ -8,17 +8,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PDFDownloader {
     public static void main(String[] args) {
-        download("http://cs.lth.se/eda095/tentamen/");
+        download("http://cs229.stanford.edu/materials.html");
     }
 
     private static void download(String url) {
         String content = "";
         URLConnection connection;
+        ExecutorService exec = Executors.newFixedThreadPool(10);
 
         //----- Connect to website and scan the content ----- //
 
@@ -53,20 +56,12 @@ public class PDFDownloader {
                 if (pdfM.find()) {
                     //... open a stream and download the hits.
                     String pdfUrl = pdfM.group(0).replaceAll("href=\"", "");
-                    InputStream in;
-                    try {
-                        URL dl = new URL(pdfUrl);
-                        in = dl.openStream();
-                        System.out.println(pdfUrl);
-                        //Files.copy(in, Paths.get("download" + i + ".pdf"), StandardCopyOption.REPLACE_EXISTING);
-                        i++;
-                        in.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    exec.submit( new DownloadThread(url, pdfUrl, i));
+                    i++;
                 }
             }
         }
+        exec.shutdown();
         if (i == 1) {
             System.out.println(i + " pdf document found.");
         } else {
