@@ -8,9 +8,11 @@ public class ServerListenerThread extends Thread {
     private Socket socket;
     private InputStream is;
     private OutputStream os;
+    private String username;
 
-    public ServerListenerThread(Socket socket){
+    public ServerListenerThread(Socket socket, String username){
         this.socket=socket;
+        this.username = username;
         try {
             is = socket.getInputStream();
             os = socket.getOutputStream();
@@ -23,9 +25,10 @@ public class ServerListenerThread extends Thread {
         Scanner scan = new Scanner(System.in);
         while(true){
             try {
+                String info = username + ":\n";
                 String msg = scan.nextLine();
                 System.out.println("You wrote: " + msg);
-                msg+="\n";
+                msg=info + msg + "\n";
                 os.write(msg.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();

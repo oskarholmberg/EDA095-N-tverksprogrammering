@@ -23,7 +23,7 @@ public class Client {
             System.out.println(e);
         }
 
-        new ServerListenerThread(socket).start();
+        new ServerListenerThread(socket, username).start();
     }
 
     public static void main(String[] args){

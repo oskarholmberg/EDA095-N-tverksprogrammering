@@ -4,9 +4,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/**
- * Created by erik on 13/04/16.
- */
 public class ChatServer {
     public static int ID;
     private ArrayList<ClientListenerThread> clientList;
@@ -20,16 +17,17 @@ public class ChatServer {
 
     public void startServer(){
         connected = true;
+        System.out.println("Starting server on port: " + port);
+        System.out.println("Server running...");
 
         try {
             ServerSocket serverSocket = new ServerSocket(port);
 
             while(connected){
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("server loop...");
 
                 if (clientSocket.isConnected()) {
-                    System.out.println("Someone connected");
+                    System.out.println("User @"+clientSocket.getInetAddress()+":"+ clientSocket.getPort() + " joined the channel.");
                     new ClientListenerThread(clientSocket).start();
                 }
             }

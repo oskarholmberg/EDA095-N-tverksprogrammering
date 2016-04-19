@@ -28,6 +28,7 @@ public class ClientListenerThread extends Thread{
         while (true) {
             try {
                 int c = is.read();
+                String msg;
                 if(c != -1){
                     System.out.print((char) c);
                 }
