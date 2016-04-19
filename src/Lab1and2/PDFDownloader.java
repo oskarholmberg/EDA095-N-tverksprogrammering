@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PDFDownloader {
+    public static int threadNbr = 0;
     public static void main(String[] args) {
         download("http://cs229.stanford.edu/materials.html");
     }
@@ -16,7 +17,7 @@ public class PDFDownloader {
     private static void download(String url) {
         String content = "";
         URLConnection connection;
-        ExecutorService exec = Executors.newFixedThreadPool(10);
+        ExecutorService exec = Executors.newFixedThreadPool(2);
 
         //----- Connect to website and scan the content ----- //
 
