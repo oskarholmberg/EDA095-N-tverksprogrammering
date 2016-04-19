@@ -1,9 +1,8 @@
 package Lab3;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientListenerThread extends Thread{
     private Socket clientSocket;
@@ -28,7 +27,10 @@ public class ClientListenerThread extends Thread{
 
         while (true) {
             try {
-                System.out.println(is.read());
+                int c = is.read();
+                if(c != -1){
+                    System.out.print((char) c);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

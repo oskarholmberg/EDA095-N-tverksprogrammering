@@ -4,9 +4,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-/**
- * Created by erik on 17/04/16.
- */
 public class Client {
     private Socket socket;
     private String server, username;
