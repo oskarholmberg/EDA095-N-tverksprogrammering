@@ -10,7 +10,7 @@ public class Client {
     public Client(){
         port=8080;
         server="localhost";
-        username="anon";
+        username="erk";
     }
 
     public void startClient(){
