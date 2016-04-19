@@ -2,7 +2,6 @@ package Lab3;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ClientListenerThread extends Thread{
     private Socket clientSocket;

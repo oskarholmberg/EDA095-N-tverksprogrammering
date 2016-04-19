@@ -3,16 +3,22 @@ package Lab3;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChatServer {
     public static int ID;
     private ArrayList<ClientListenerThread> clientList;
     private int port;
     private boolean connected;
+    private ExecutorService exec;
 
 
     public ChatServer(int port){
         this.port=port;
+        exec = Executors.newFixedThreadPool(10);
+        System.out.println("Chatserver Started...");
+
     }
 
     public void startServer(){
@@ -28,7 +34,7 @@ public class ChatServer {
 
                 if (clientSocket.isConnected()) {
                     System.out.println("User @"+clientSocket.getInetAddress()+":"+ clientSocket.getPort() + " joined the channel.");
-                    new ClientListenerThread(clientSocket).start();
+                    exec.submit(new ClientListenerThread(clientSocket));
                 }
             }
 
