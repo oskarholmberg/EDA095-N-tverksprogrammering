@@ -1,13 +1,10 @@
-package Lab1;
+package Lab1and2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 /**
  * Created by erik on 05/04/16.

@@ -1,4 +1,4 @@
-package Lab2;
+package Lab3;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,6 +23,7 @@ public class Client {
     public void start(){
         try{
             socket = new Socket(server, port);
+            System.out.println("Client socket started.");
         } catch(Exception e){
             System.out.println(e);
         }

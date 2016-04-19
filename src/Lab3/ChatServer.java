@@ -1,4 +1,4 @@
-package Lab2;
+package Lab3;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,6 +26,7 @@ public class ChatServer {
 
             while(connected){
                 Socket clientSocket = serverSocket.accept();
+                System.out.println("server loop...");
 
                 if (clientSocket.isConnected())
                     System.out.println("Someone connected");
@@ -50,5 +51,9 @@ public class ChatServer {
         } catch (Exception e){
             System.out.println(e);
         }
+    }
+    public static void main(String[] args){
+        new ChatServer(8080).startServer();
+        new Client().start();
     }
 }
