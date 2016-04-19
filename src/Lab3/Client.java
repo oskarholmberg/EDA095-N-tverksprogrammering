@@ -8,8 +8,6 @@ import java.net.Socket;
  * Created by erik on 17/04/16.
  */
 public class Client {
-    private InputStream is;
-    private OutputStream os;
     private Socket socket;
     private String server, username;
     private int port;
@@ -20,7 +18,7 @@ public class Client {
         username="anon";
     }
 
-    public void start(){
+    public void startClient(){
         try{
             socket = new Socket(server, port);
             System.out.println("Client socket started.");
@@ -28,19 +26,12 @@ public class Client {
             System.out.println(e);
         }
 
-        try{
-            is = socket.getInputStream();
-            os = socket.getOutputStream();
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
-        new ServerListenerThread().start();
+        new ServerListenerThread(socket).start();
     }
 
     public static void main(String[] args){
         Client client = new Client();
 
-        client.start();
+        client.startClient();
     }
 }

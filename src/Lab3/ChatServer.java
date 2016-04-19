@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class ChatServer {
     public static int ID;
-    private ArrayList<ClientThread> clientList;
+    private ArrayList<ClientListenerThread> clientList;
     private int port;
     private boolean connected;
 
@@ -28,32 +28,29 @@ public class ChatServer {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("server loop...");
 
-                if (clientSocket.isConnected())
+                if (clientSocket.isConnected()) {
                     System.out.println("Someone connected");
-
-                if (!connected){
-                    clientList.add(new ClientThread(clientSocket));
+                    new ClientListenerThread(clientSocket).start();
                 }
             }
 
             try{
                 serverSocket.close();
 
-               // for (ClientThread c : clientList){
+               // for (ClientListenerThread c : clientList){
                 //    c.close();
                // }
 
             } catch (Exception e){
-                System.out.println(e);
+                e.printStackTrace();
             }
 
 
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
     public static void main(String[] args){
         new ChatServer(8080).startServer();
-        new Client().start();
     }
 }

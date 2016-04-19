@@ -1,20 +1,17 @@
 package Lab3;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+
+import java.io.*;
 import java.net.Socket;
 
-/**
- * Created by erik on 17/04/16.
- */
-public class ClientThread extends Thread{
+public class ClientListenerThread extends Thread{
     private Socket clientSocket;
     private InputStream is;
     private OutputStream os;
     private int ID;
-    private boolean connected;
 
-    public ClientThread(Socket clientSocket) {
+    public ClientListenerThread(Socket clientSocket) {
         this.clientSocket=clientSocket;
         ID = ++ChatServer.ID;
 
@@ -23,15 +20,18 @@ public class ClientThread extends Thread{
             os = clientSocket.getOutputStream();
 
         } catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
     public void run(){
-        connected = true;
 
-        while (connected) {
-
+        while (true) {
+            try {
+                System.out.println(is.read());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
