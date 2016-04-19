@@ -32,17 +32,6 @@ public class ChatServer {
                 }
             }
 
-            try{
-                serverSocket.close();
-
-               // for (ClientListenerThread c : clientList){
-                //    c.close();
-               // }
-
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-
 
         } catch (Exception e){
             e.printStackTrace();

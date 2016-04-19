@@ -11,8 +11,8 @@ public class Client {
 
     public Client(){
         port=8080;
-        server="localhost";
-        username="anon";
+        server="192.168.0.100";
+        username="erk";
     }
 
     public void startClient(){
