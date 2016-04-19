@@ -1,7 +1,5 @@
 package Lab3;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 
 public class Client {
@@ -23,7 +21,7 @@ public class Client {
             System.out.println(e);
         }
 
-        new ServerListenerThread(socket, username).start();
+        new ServerWriterThread(socket, username).start();
     }
 
     public static void main(String[] args){
