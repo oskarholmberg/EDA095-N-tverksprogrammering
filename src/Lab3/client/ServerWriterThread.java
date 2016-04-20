@@ -1,4 +1,4 @@
-package Lab3;
+package Lab3.client;
 
 import java.io.*;
 import java.net.Socket;

@@ -1,4 +1,4 @@
-package Lab3;
+package Lab3.server;
 
 import java.io.*;
 import java.net.Socket;
@@ -32,7 +32,7 @@ public class ClientListenerThread extends Thread{
                     c = is.read();
                 }
                 sb.append("\n");
-                Message msg = new Message(sb.toString());
+                Message msg = new Message(sb.toString(), clientSocket.getInetAddress().toString());
                 if (msg.splitString()){
                     mm.newMsg(msg);
                     System.out.println(msg.getMessage());

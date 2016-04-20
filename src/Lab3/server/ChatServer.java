@@ -1,4 +1,4 @@
-package Lab3;
+package Lab3.server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -37,6 +37,7 @@ public class ChatServer {
                 if (clientSocket.isConnected()) {
                     System.out.println("User @"+clientSocket.getInetAddress()+":"+ clientSocket.getPort() + " joined the channel.");
                     exec.submit(new ClientListenerThread(clientSocket, mm));
+                    mm.newConnection(clientSocket.getInetAddress().toString(), clientSocket);
                 }
             }
 
