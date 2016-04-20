@@ -27,8 +27,8 @@ public class ServerWriterThread extends Thread {
             try {
                 String info = username + ": ";
                 String msg = scan.nextLine();
+                msg=info + msg + "*";
                 System.out.println("You wrote: " + msg);
-                msg=info + msg + "\n";
                 os.write(msg.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();

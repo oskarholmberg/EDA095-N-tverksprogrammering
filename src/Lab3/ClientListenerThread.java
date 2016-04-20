@@ -6,16 +6,16 @@ import java.net.Socket;
 public class ClientListenerThread extends Thread{
     private Socket clientSocket;
     private InputStream is;
-    private OutputStream os;
+    private MessageMonitor mm;
     private int ID;
 
-    public ClientListenerThread(Socket clientSocket) {
+    public ClientListenerThread(Socket clientSocket, MessageMonitor mm) {
         this.clientSocket=clientSocket;
+        this.mm=mm;
         ID = ++ChatServer.ID;
 
         try {
             is = clientSocket.getInputStream();
-            os = clientSocket.getOutputStream();
 
         } catch(Exception e){
             e.printStackTrace();
@@ -23,13 +23,19 @@ public class ClientListenerThread extends Thread{
     }
 
     public void run(){
-
         while (true) {
             try {
+                StringBuilder sb = new StringBuilder();
                 int c = is.read();
-                String msg;
-                if(c != -1){
-                    System.out.print((char) c);
+                while(c != -1 && c!=42){
+                    sb.append((char) c);
+                    c = is.read();
+                }
+                sb.append("\n");
+                Message msg = new Message(sb.toString());
+                if (msg.splitString()){
+                    mm.newMsg(msg);
+                    System.out.println(msg.getMessage());
                 }
             } catch (IOException e) {
                 e.printStackTrace();

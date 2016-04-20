@@ -12,12 +12,14 @@ public class ChatServer {
     private int port;
     private boolean connected;
     private ExecutorService exec;
+    private MessageMonitor mm;
 
 
     public ChatServer(int port){
         this.port=port;
         exec = Executors.newFixedThreadPool(10);
         System.out.println("Chatserver Started...");
+        mm = new MessageMonitor();
 
     }
 
@@ -34,7 +36,7 @@ public class ChatServer {
 
                 if (clientSocket.isConnected()) {
                     System.out.println("User @"+clientSocket.getInetAddress()+":"+ clientSocket.getPort() + " joined the channel.");
-                    exec.submit(new ClientListenerThread(clientSocket));
+                    exec.submit(new ClientListenerThread(clientSocket, mm));
                 }
             }
 

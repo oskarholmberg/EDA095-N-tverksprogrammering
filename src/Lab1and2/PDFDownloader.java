@@ -17,7 +17,7 @@ public class PDFDownloader {
     private static void download(String url) {
         String content = "";
         URLConnection connection;
-        ExecutorService exec = Executors.newFixedThreadPool(2);
+        ExecutorService exec = Executors.newFixedThreadPool(5);
 
         //----- Connect to website and scan the content ----- //
 
