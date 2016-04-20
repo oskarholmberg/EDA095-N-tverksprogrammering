@@ -20,9 +20,9 @@ public class Message {
         if (split.length<3){
             return false;
         }
-        username=split[0];
-        type=split[1];
-        content=split[2];
+        username=split[0].trim();
+        type=split[1].trim();
+        content=split[2].trim();
         return true;
     }
     public String getInetAddress(){ return inetAddress;}

@@ -18,8 +18,7 @@ public class EchoThread extends Thread {
     public void run(){
         try {
             OutputStream os = clientSocket.getOutputStream();
-            os.write(msg.getMessage().getBytes());
-            os.close();
+            os.write((msg.getMessage()+"*").getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

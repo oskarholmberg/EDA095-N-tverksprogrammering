@@ -31,9 +31,9 @@ public class MessageMonitor {
     public synchronized void fetchMsg() throws InterruptedException {
         if(msgList.isEmpty()) {
             wait();
-        } else {
+        } else{
             Message msg = msgList.remove(0);
-            if (msg.getType().equals("E:")){
+            if (msg.getType().equals("E")){
                 exec.submit(new EchoThread(clientList.get(msg.getInetAddress()), msg));
             }
         }
