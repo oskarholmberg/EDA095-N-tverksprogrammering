@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.net.Socket;
 
 public class ServerListenerThread extends Thread{
-    private Socket socket;
     private InputStream is;
+    private Socket socket;
     public ServerListenerThread(Socket socket){
         this.socket=socket;
         try {

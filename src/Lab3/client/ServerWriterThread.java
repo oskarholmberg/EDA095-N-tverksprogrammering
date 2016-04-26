@@ -6,15 +6,15 @@ import java.util.Scanner;
 
 public class ServerWriterThread extends Thread {
     private Socket socket;
-    private InputStream is;
     private OutputStream os;
     private String username;
+    private Client client;
 
-    public ServerWriterThread(Socket socket, String username){
+    public ServerWriterThread(Socket socket, String username, Client client){
         this.socket=socket;
         this.username = username;
+        this.client=client;
         try {
-            is = socket.getInputStream();
             os = socket.getOutputStream();
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,6 +29,9 @@ public class ServerWriterThread extends Thread {
                 String msg = scan.nextLine();
                 msg=info + msg + "*";
                 os.write(msg.getBytes());
+                if(msg.contains("Q:")){
+                    client.disconnect();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
