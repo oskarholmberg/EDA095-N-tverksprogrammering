@@ -12,8 +12,8 @@ public class Client {
 
     public Client(){
         port=8080;
-        server="31.208.65.146";
-        username="Erik";
+        server="localhost";
+        username="Chuck Testa";
     }
 
     public void startClient(){
@@ -21,7 +21,7 @@ public class Client {
             socket = new Socket(server, port);
             System.out.println("Connected to server @"+ server + ":" + port);
         } catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         swt = new ServerWriterThread(socket, username, this);
         slt = new ServerListenerThread(socket);
