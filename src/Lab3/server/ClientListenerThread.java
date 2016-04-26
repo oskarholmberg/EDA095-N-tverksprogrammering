@@ -23,7 +23,7 @@ public class ClientListenerThread extends Thread{
     }
 
     public void run(){
-        while (true) {
+        while (!clientSocket.isClosed()) {
             try {
                 StringBuilder sb = new StringBuilder();
                 int c = is.read();
@@ -32,7 +32,7 @@ public class ClientListenerThread extends Thread{
                     c = is.read();
                 }
                 sb.append("\n");
-                Message msg = new Message(sb.toString(), clientSocket.getInetAddress().toString());
+                Message msg = new Message(sb.toString(), clientSocket.getInetAddress().toString()+":"+clientSocket.getPort());
                 if (msg.splitString()){
                     mm.newMsg(msg);
                     System.out.println(msg.getMessage());

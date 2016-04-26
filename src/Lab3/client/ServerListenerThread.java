@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.net.Socket;
 
 public class ServerListenerThread extends Thread{
-    private Socket socket;
     private InputStream is;
+    private Socket socket;
     public ServerListenerThread(Socket socket){
         this.socket=socket;
         try {
@@ -17,9 +17,8 @@ public class ServerListenerThread extends Thread{
     }
 
     public void run(){
-        while(true){
+        while(!socket.isClosed()){
             try {
-                System.out.println("spam?");
                 System.out.println(readMessage());
             } catch (IOException e) {
                 e.printStackTrace();

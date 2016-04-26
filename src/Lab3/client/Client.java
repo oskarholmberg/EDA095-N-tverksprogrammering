@@ -8,13 +8,13 @@ public class Client {
     private Socket socket;
     private String server, username;
     private int port;
-    private ExecutorService exec;
+    private ServerWriterThread swt;
+    private ServerListenerThread slt;
 
     public Client(){
         port=8080;
         server="localhost";
         username="erk";
-        exec = Executors.newFixedThreadPool(2);
     }
 
     public void startClient(){
@@ -24,13 +24,24 @@ public class Client {
         } catch(Exception e){
             System.out.println(e);
         }
-        exec.submit(new ServerWriterThread(socket, username));
-        exec.submit(new ServerListenerThread(socket));
+        swt = new ServerWriterThread(socket, username, this);
+        slt = new ServerListenerThread(socket);
+        swt.start();
+        slt.start();
+    }
+
+    public void disconnect(){
+        slt.interrupt();
+        swt.interrupt();
+        try {
+            slt.join();
+            swt.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args){
-        Client client = new Client();
-
-        client.startClient();
+        new Client().startClient();
     }
 }
