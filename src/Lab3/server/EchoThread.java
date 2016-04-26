@@ -18,7 +18,12 @@ public class EchoThread extends Thread {
     public void run(){
         try {
             OutputStream os = clientSocket.getOutputStream();
-            os.write((msg.getMessage()+"*").getBytes());
+            if(msg.getInetAddress().equals(clientSocket.getInetAddress()+":"+clientSocket.getPort())){
+                os.write(("You said: "+msg.getMessage()+"*").getBytes());
+            }
+            else {
+                os.write((msg.getUsername() + " said: " + msg.getMessage() + "*").getBytes());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

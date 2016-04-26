@@ -23,12 +23,11 @@ public class ServerWriterThread extends Thread {
 
     public void run(){
         Scanner scan = new Scanner(System.in);
-        while(true){
+        while(!socket.isClosed()){
             try {
                 String info = username + ": ";
                 String msg = scan.nextLine();
                 msg=info + msg + "*";
-                System.out.println("You wrote: " + msg);
                 os.write(msg.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();

@@ -13,14 +13,14 @@ public class Client {
     public Client(){
         port=8080;
         server="localhost";
-        username="erk";
+        username="Oskar";
         exec = Executors.newFixedThreadPool(2);
     }
 
     public void startClient(){
         try{
             socket = new Socket(server, port);
-            System.out.println("client socket started.");
+            System.out.println("Connected to server @"+ server + ":" + port);
         } catch(Exception e){
             System.out.println(e);
         }

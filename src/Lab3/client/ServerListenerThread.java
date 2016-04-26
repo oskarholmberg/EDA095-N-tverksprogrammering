@@ -17,9 +17,8 @@ public class ServerListenerThread extends Thread{
     }
 
     public void run(){
-        while(true){
+        while(!socket.isClosed()){
             try {
-                System.out.println("spam?");
                 System.out.println(readMessage());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -35,7 +34,6 @@ public class ServerListenerThread extends Thread{
             sb.append((char) c);
             c = is.read();
         }
-        sb.append("\n");
         return sb.toString();
     }
 }

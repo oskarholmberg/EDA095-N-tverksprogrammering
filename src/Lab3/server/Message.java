@@ -29,9 +29,10 @@ public class Message {
     public String getType(){
         return type;
     }
+    public String getUsername(){return username;}
 
     public String getMessage(){
-        return username+ ":" + content;
+        return content;
     }
 
 }
