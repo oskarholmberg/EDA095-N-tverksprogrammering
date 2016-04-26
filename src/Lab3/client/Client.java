@@ -2,8 +2,6 @@ package Lab3.client;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Client {
     private Socket socket;
@@ -14,8 +12,8 @@ public class Client {
 
     public Client(){
         port=8080;
-        server="localhost";
-        username="Oskar";
+        server="31.208.65.146";
+        username="Erik";
     }
 
     public void startClient(){
