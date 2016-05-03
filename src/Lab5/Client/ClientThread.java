@@ -28,6 +28,15 @@ public class ClientThread extends Thread {
                 byte[] outBuf = s.getBytes();
                 DatagramPacket dpOut = new DatagramPacket(outBuf, outBuf.length, ia, 4099);
                 ms.send(dpOut);
+                byte[] buf = new byte[65536];
+                DatagramPacket dp = new DatagramPacket(buf, buf.length);
+                try {
+                    ms.receive(dp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String resp = new String(dp.getData(), 0, dp.getLength());
+                System.out.println("Received: " + resp + " from " + dp.getSocketAddress());
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,9 +2,7 @@ package Lab5.Server;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.MulticastSocket;
-import java.net.SocketException;
 
 public class ServerThread extends Thread{
 
@@ -25,6 +23,13 @@ public class ServerThread extends Thread{
             }
             String s = new String(dp.getData(), 0, dp.getLength());
             System.out.println("Received: " + s + " from " + dp.getSocketAddress());
+            byte[] response = ms.getLocalSocketAddress().toString().getBytes();
+            DatagramPacket dpResp = new DatagramPacket(response, response.length, dp.getAddress(), dp.getPort());
+            try {
+                ms.send(dpResp);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
