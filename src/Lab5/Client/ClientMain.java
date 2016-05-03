@@ -10,7 +10,7 @@ public class ClientMain {
             MulticastSocket ms = new MulticastSocket();
             ms.setTimeToLive(1);
             InetAddress ia = InetAddress.getByName("experiment.mcast.net");
-            new ClientSenderThread(ia, ms).start();
+            new ClientThread(ia, ms).start();
 
         } catch (IOException e) {
             System.out.println("Exception:" + e);

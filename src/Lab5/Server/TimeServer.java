@@ -9,9 +9,9 @@ public class TimeServer {
 
     }
 
-    public String getResponse(String command) {
-        DateFormat df = null;
-        String response = "";
+    public synchronized String getResponse(String command) {
+        DateFormat df;
+        String response;
         switch (command) {
             case "date":
                 df = DateFormat.getDateInstance(DateFormat.MEDIUM);

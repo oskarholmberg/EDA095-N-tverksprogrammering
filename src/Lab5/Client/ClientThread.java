@@ -1,15 +1,20 @@
-package Lab5;
+package Lab5.Client;
 
 import java.net.*;
 import java.io.*;
 
-public class MCSender {
+public class ClientThread extends Thread {
+    private InetAddress ia;
+    private MulticastSocket ms;
 
-    public static void main(String args[]) {
+
+    public ClientThread(InetAddress ia, MulticastSocket ms) {
+        this.ia = ia;
+        this.ms = ms;
+    }
+
+    public void run() {
         try {
-            MulticastSocket ms = new MulticastSocket();
-            ms.setTimeToLive(1);
-            InetAddress ia = InetAddress.getByName("experiment.mcast.net");
             while (true) {
                 int ch;
                 String s = new String();
@@ -21,12 +26,11 @@ public class MCSender {
                 } while (ch != '\n');
                 System.out.println("Sending message: " + s);
                 byte[] outBuf = s.getBytes();
-                DatagramPacket dp = new DatagramPacket(outBuf, outBuf.length, ia, 4099);
-                ms.send(dp);
+                DatagramPacket dpOut = new DatagramPacket(outBuf, outBuf.length, ia, 4099);
+                ms.send(dpOut);
             }
         } catch (IOException e) {
-            System.out.println("Exception:" + e);
+            e.printStackTrace();
         }
     }
-
 }

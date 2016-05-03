@@ -11,7 +11,7 @@ public class ServerMain {
             MulticastSocket ms = new MulticastSocket(4099);
             InetAddress ia = InetAddress.getByName("experiment.mcast.net");
             ms.joinGroup(ia);
-            new ServerReceiverThread(ms).start();
+            new ServerThread(ms).start();
         } catch (IOException e) {
             System.out.println("Exception:" + e);
         }

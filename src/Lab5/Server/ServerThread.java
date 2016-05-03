@@ -6,11 +6,11 @@ import java.net.DatagramSocket;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 
-public class ServerReceiverThread extends Thread{
+public class ServerThread extends Thread{
 
     private MulticastSocket ms;
 
-    public ServerReceiverThread(MulticastSocket ms) {
+    public ServerThread(MulticastSocket ms) {
         this.ms = ms;
     }
 
@@ -25,18 +25,6 @@ public class ServerReceiverThread extends Thread{
             }
             String s = new String(dp.getData(), 0, dp.getLength());
             System.out.println("Received: " + s + " from " + dp.getSocketAddress());
-            try {
-                String response = new TimeServer().getResponse(s);
-                DatagramSocket ds = new DatagramSocket(dp.getPort(), dp.getAddress());
-                byte[] respBuf = response.getBytes();
-                DatagramPacket dpResp = new DatagramPacket(respBuf, respBuf.length);
-                ds.send(dpResp);
-
-            } catch (SocketException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
