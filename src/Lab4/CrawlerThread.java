@@ -7,33 +7,27 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-/**
- * Created by erik on 26/04/16.
- */
-public class CrawlerThread extends Thread{
+public class CrawlerThread extends Thread {
     private URLMonitor mon;
 
-    public CrawlerThread(URLMonitor mon){
-        this.mon=mon;
+    public CrawlerThread(URLMonitor mon) {
+        this.mon = mon;
     }
 
-    public void run(){
-        int i = 0;
-        while(!mon.isFinished()){
+    public void run() {
+        while (!mon.isFinished()) {
             try {
-                i++;
-                System.out.println("Level:" + i);
                 Document doc = Jsoup.connect(mon.getURL()).get();
-                Elements mailtos = doc.select("mailto");
-                for (Element mailto:mailtos){
-                    mon.addMail(mailto.attr("abs:href"));
-                }
                 Elements links = doc.select("a[href]");
-                for (Element link:links){
-                    mon.addURL(link.attr("abs:href"));
+                for (Element l : links) {
+                    String link = l.attr("abs:href");
+                    if (link.contains("mailto:"))
+                        mon.addMail(link);
+                    else
+                        mon.addURL(link);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+
             }
         }
     }

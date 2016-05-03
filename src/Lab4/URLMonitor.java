@@ -7,9 +7,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Queue;
 
-/**
- * Created by erik on 26/04/16.
- */
 public class URLMonitor {
     private ArrayList<String> remaining;
     private ArrayList<String> traversed;
@@ -76,7 +73,7 @@ public class URLMonitor {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            System.out.println("Crawling finished: total of: " + (links.size()+mails.size()) + " links.");
+            System.out.println("Crawling finished! \nFound a total of: " + (links.size()+mails.size()) + " links");
         }
         return true;
     }
