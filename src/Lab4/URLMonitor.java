@@ -61,11 +61,9 @@ public class URLMonitor {
             try {
                 PrintWriter pw = new PrintWriter(new File("GhostcrawlerOutput.txt"));
                 pw.write("Links:\n");
-                System.out.println(links.size());
                 for(String s : links)
                     pw.write(s+"\n");
                 pw.write("Emails:\n");
-                System.out.println(mails.size());
                 for (String s : mails)
                     pw.write(s+"\n");
                 pw.close();
