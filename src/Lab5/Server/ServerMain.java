@@ -12,6 +12,7 @@ public class ServerMain {
             InetAddress ia = InetAddress.getByName("experiment.mcast.net");
             ms.joinGroup(ia);
             new ServerThread(ms).start();
+            new TimeServer().start();
         } catch (IOException e) {
             System.out.println("Exception:" + e);
         }

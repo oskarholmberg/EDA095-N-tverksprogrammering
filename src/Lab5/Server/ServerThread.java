@@ -22,8 +22,8 @@ public class ServerThread extends Thread{
                 e.printStackTrace();
             }
             String s = new String(dp.getData(), 0, dp.getLength());
-            System.out.println("Received: " + s + " from " + dp.getSocketAddress());
-            byte[] response = ms.getLocalSocketAddress().toString().getBytes();
+            System.out.println("Server has received: " + s + " from " + dp.getSocketAddress());
+            byte[] response = new String("30000").getBytes();
             DatagramPacket dpResp = new DatagramPacket(response, response.length, dp.getAddress(), dp.getPort());
             try {
                 ms.send(dpResp);

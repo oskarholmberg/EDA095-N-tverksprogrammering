@@ -37,6 +37,20 @@ public class ClientThread extends Thread {
                 }
                 String resp = new String(dp.getData(), 0, dp.getLength());
                 System.out.println("Received: " + resp + " from " + dp.getSocketAddress());
+                DatagramSocket ds = new DatagramSocket();
+                DatagramPacket dp2 = new DatagramPacket(outBuf, outBuf.length, dp.getAddress(), Integer.valueOf(resp));
+                System.out.println("Sending request to TimeServer...");
+                ds.send(dp2);
+                System.out.println("Request sent.");
+                byte[] buf3 = new byte[65536];
+                DatagramPacket dp3 = new DatagramPacket(buf3, buf3.length);
+                try {
+                    ds.receive(dp3);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String resp3 = new String(dp3.getData(), 0, dp3.getLength());
+                System.out.println("Received: " + resp3);
             }
         } catch (IOException e) {
             e.printStackTrace();
